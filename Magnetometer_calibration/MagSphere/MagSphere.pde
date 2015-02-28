@@ -23,7 +23,7 @@
 	vector coordinates in the right format:
 	
 		Serial.print(0xDE, BYTE);
-		Serial.print(vector[0]); //X
+		Serial.print(vector[0]); //X string representing int
 		Serial.print(" ");
 		Serial.print(vector[1]); //Y
 		Serial.print(" ");
@@ -143,11 +143,14 @@ void serialEvent(Serial p) {
     case 222:
       
      String linein = p.readStringUntil(10);
-     // print(linein);
+      print(linein);
       if (linein != null) {
         vals = int (split(linein, ' '));
+        vals[0]/=10;
+        vals[1]/=10;
+        vals[2]/=10;
         vecs[count] = new PVector(vals[0], vals[2], vals[1]);
-       // print(vals[0]+"\n");
+       //print(vals[0]+"\n");
         count++;
         findCentroid();
         findGain();
